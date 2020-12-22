@@ -1,3 +1,3 @@
-# FiM++ Syntax Highligher
+# FiM++ Syntax Highlighter
 
 For use with FiM++ programs.
