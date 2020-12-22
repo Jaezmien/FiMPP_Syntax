@@ -1,0 +1,26 @@
+{
+    "name": "fimpp",
+    "displayName": "FiM++",
+    "description": "FiM++ Syntax Highlighter",
+    "version": "0.0.1",
+    "publisher": "JaezmienNaejara",
+    "engines": {
+        "vscode": "^1.52.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "fimpp",
+            "aliases": ["FiM++", "fimpp"],
+            "extensions": [".fim",".fpp"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "fimpp",
+            "scopeName": "source.fpp",
+            "path": "./syntaxes/fimpp.tmLanguage.json"
+        }]
+    }
+}

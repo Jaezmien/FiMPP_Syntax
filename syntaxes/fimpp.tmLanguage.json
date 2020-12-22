@@ -1,0 +1,461 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "FiM++",
+	"patterns": [
+		{
+			"include": "#strings"
+        },
+        {
+            "include": "#chars"
+        },
+        
+        {
+            "match":"^(Dear Princess Celestia: )|^(Your faithful student)",
+            "captures":{
+                "1":{
+                    "name":"keyword.other.namespace"
+                }
+            },
+            "name":"keyword.other.namespace"
+        },
+        {
+            "match":"(?<=Dear Princess Celestia: )[^\\.\\!\\?\\:\\,]*",
+            "captures":{
+                "1":{
+                    "name":"entity.name"
+                }
+            },
+            "name":"entity.name"
+        },
+
+        {
+            "match":"^(Today )?(I learned)",
+            "captures":{
+                "1":{
+                    "name":"entity.name.class"
+                }
+            },
+            "name":"entity.name.class"
+        },
+        {
+            "match":"(That's all about)",
+            "captures":{
+                "1":{
+                    "name":"entity.name.function.destructor"
+                }
+            },
+            "name":"entity.name.function.destructor"
+        },
+        {
+            "match":"(Did you know that)",
+            "captures":{
+                "1":{
+                    "name":"entity.name.tag"
+                }
+            },
+            "name":"entity.name.tag"
+        },
+
+        {
+            "include": "#variable_types"
+        },
+
+        {
+            "match":"(P\\.)(P\\.)*S\\. .*",
+            "captures":{
+                "1":{
+                    "name":"punctuation.definition.comment"
+                }
+            },
+            "name":"comment.line.fpp"
+        },
+        {
+            "match":"(\\([^\\)]*\\))",
+            "captures":{
+                "1":{
+                    "name":"punctuation.definition.comment"
+                }
+            },
+            "name":"comment.line.fpp"
+        },
+
+        {
+            "match":"\\d",
+            "captures":{
+                "1":{
+                    "name":"constant.numeric.integer"
+                }
+            },
+            "name":"constant.numeric.integer"
+        },
+		{
+            "match":"nothing|correct|right|true|yes|false|incorrect|no|wrong",
+            "captures":{
+                "1":{
+                    "name":"constant.language"
+                }
+            },
+            "name":"constant.language"
+        },
+
+        {
+            "begin":"In regards to",
+            "beginCaptures":{
+                "0":{
+                    "name":"keyword.control.switch"
+                }
+            },
+            "end":":",
+            "endCaptures": {
+                "0": {
+                    "name":"punctuation.separator.colon"
+                }
+            }
+        },
+        {
+            "begin":"(On the)",
+            "beginCaptures":{
+                "1":{
+                    "name":"keyword.control.case"
+                }
+            },
+            "end": "(hoof\\.\\.\\.)",
+            "endCaptures":{
+                "1":{
+                    "name":"keyword.control.case"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#control_flow"
+                }
+            ]
+        },
+        {
+            "match": "(If all else fails\\.\\.\\.)",
+            "captures":{
+                "1":{
+                    "name":"keyword.control.case"
+                }
+            },
+            "name":"keyword.control.case"
+        },
+        {
+            "begin":"(For every)",
+            "beginCaptures":{
+                "1":{
+                    "name":"keyword.control.loop.for"
+                }
+            },
+            "end": "(?<=\\w)(\\.\\.\\.)",
+            "endCaptures":{
+                "1":{
+                    "name":"keyword.control.loop.for"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#control_flow"
+                },
+                {
+                    "include": "#variable_types"
+                }
+            ]
+        },
+        {
+            "match":"(As long as)|(While)",
+            "captures":{
+                "1":{
+                    "name":"keyword.control.loop.while"
+                }
+            },
+            "name":"keyword.control.loop.while",
+            "patterns": [
+                {
+                    "include": "#control_flow"
+                }
+            ]
+        },
+        {
+            "match":"((I|i)f)|(When)",
+            "captures":{
+                "1":{
+                    "name":"keyword.control.conditional.if"
+                }
+            },
+            "name":"keyword.control.conditional.if",
+            "patterns": [
+                {
+                    "include": "#control_flow"
+                }
+            ]
+        },
+        {
+            "match":"(Otherwise|Or else)( ((I|i)f)|(When))?",
+            "captures":{
+                "1":{
+                    "name":"keyword.control.conditional.else"
+                }
+            },
+            "name":"keyword.control.conditional.else",
+            "patterns": [
+                {
+                    "include": "#control_flow"
+                }
+            ]
+        },
+        {
+            "match":"(That's what I (did|would do))|(then)",
+            "captures":{
+                "1":{
+                    "name":"keyword.control"
+                }
+            },
+            "name":"keyword.other"
+        },
+		{
+            "match":" ((had no|has no|is no|is not|isn't|was no|was not|wasn't|were no|were not|weren't) less than) ",
+            "captures":{
+                "1":{
+                    "name":"keyword.operator"
+                }
+            },
+            "name":"keyword.operator"
+        },
+        {
+            "match":"(((had|has|were|was) more than)|((is|was|were) greater than))",
+            "captures":{
+                "1":{
+                    "name":"keyword.operator"
+                }
+            },
+            "name":"keyword.operator"
+        },
+        {
+            "match":"((had|has|is|was|were) less than)",
+            "captures":{
+                "1":{
+                    "name":"keyword.operator"
+                }
+            },
+            "name":"keyword.operator"
+        },
+        {
+            "match":"(((is no|is not|isn't|was no|was not|wasn't|were|were not|weren't) greater than)|((had no|has no|is no|is not|isn't|was no|was not|wasn't|were|were not|weren't) more than))",
+            "captures":{
+                "1":{
+                    "name":"keyword.operator"
+                }
+            },
+            "name":"keyword.operator"
+        },
+        {
+            "match":"(((wasn't|isn't|weren't) equal to)|((had|has|is|was|were)n't)|((had|has|is|was|were) not))",
+            "captures":{
+                "1":{
+                    "name":"keyword.operator"
+                }
+            },
+            "name":"keyword.operator"
+        },
+        {
+            "match":" (((is|was|were) equal to)|((had|has|is|was|were)(?! no)))",
+            "captures":{
+                "1":{
+                    "name":"keyword.operator"
+                }
+            },
+            "name":"keyword.operator"
+        },
+
+        {
+            "match":"added to|plus",
+            "captures":{
+                "1":{
+                    "name":"keyword.operator"
+                }
+            },
+            "name":"keyword.operator"
+        },
+        {
+            "match":"minus|without",
+            "captures":{
+                "1":{
+                    "name":"keyword.operator"
+                }
+            },
+            "name":"keyword.operator"
+        },
+        {
+            "match":"multiplied with|times",
+            "captures":{
+                "1":{
+                    "name":"keyword.operator"
+                }
+            },
+            "name":"keyword.operator"
+        },
+        {
+            "match":"divided by|over",
+            "captures":{
+                "1":{
+                    "name":"keyword.operator"
+                }
+            },
+            "name":"keyword.operator"
+        },
+        {
+            "match":"(the remainder of)|mod",
+            "captures":{
+                "1":{
+                    "name":"keyword.operator"
+                }
+            },
+            "name":"keyword.operator"
+        },
+        {
+            "match": "length of",
+            "name": "support.function.library"
+        },
+
+        {
+            "match":"(There was one (more|less))|(got one (more|less))",
+            "name":"keyword.operator"
+        },
+
+        {
+            "match":"Then you get",
+            "captures":{
+                "1":{
+                    "name":"entity.name.function"
+                }
+            },
+            "name":"entity.name.function"
+        },
+        {
+            "match":"I (said|sang|wrote|remembered|would)",
+            "captures":{
+                "1":{
+                    "name":"entity.name.function"
+                }
+            },
+            "name":"entity.name.function"
+        },
+        {
+            "match":"(be((comes?)|came))|((is|are) now)|(now likes?)",
+            "captures":{
+                "0":{
+                    "name":"entity.name.function"
+                }
+            },
+            "name":"entity.name.function"
+        },
+
+        {
+            "match":"(always)",
+            "captures":{
+                "1":{
+                    "name":"constant"
+                }
+            },
+            "name":"constant"
+        },
+
+        {
+            "match":"(using)|(to get)",
+            "captures":{
+                "1":{
+                    "name":"variable.parameter"
+                }
+            },
+            "name":"variable.parameter"
+        }
+	],
+	"repository": {
+		"@keywords": {
+			"patterns": [{
+				"name": "keyword.control.fimpp",
+				"match": "\\b(if|while|for|return)\\b"
+			}]
+		},
+		"escaped_char": {
+            "patterns": [
+                {
+                    "match": "\\\\([\"'])",
+                    "name": "constant.character.escape"
+                }
+            ]
+        },
+        "control_flow": {
+            "patterns": [
+                {
+                    "match":" (and|or|in|from|to|of) ",
+                    "name":"keyword.control.flow"
+                }
+            ]
+        },
+        "variable_types": {
+            "patterns": [
+                {
+                    "match":"((the |a )?(number))|((many |the )?(numbers))",
+                    "captures":{
+                        "1":{
+                            "name":"entity.name.type"
+                        }
+                    },
+                    "name":"entity.name.type"
+                },
+                {
+                    "match":"((an |the )?(argument|logic))|((the )?(arguments|logics))",
+                    "captures":{
+                        "1":{
+                            "name":"entity.name.type"
+                        }
+                    },
+                    "name":"entity.name.type"
+                },
+                {
+                    "match":"((many |the )?(phrases|quotes|sentences|words))|((a |the )?(phrase|quote|sentence|word|characters|letters))",
+                    "captures":{
+                        "1":{
+                            "name":"entity.name.type"
+                        }
+                    },
+                    "name":"entity.name.type"
+                },
+                {
+                    "match":"(a |the )?(character|letter)",
+                    "captures":{
+                        "1":{
+                            "name":"entity.name.type"
+                        }
+                    },
+                    "name":"entity.name.type"
+                }
+            ]
+        },
+		"strings": {
+			"name": "string.quoted.double.fimpp",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.fimpp",
+					"match": "\\\\."
+				}
+			]
+        },
+        "chars": {
+            "name": "string.quoted.single.fimpp",
+			"begin": "'",
+			"end": "'",
+			"patterns": [
+				{
+					"name": "constant.character.escape.fimpp",
+					"match": "\\\\."
+				}
+			]
+		}
+	},
+	"scopeName": "source.fpp"
+}
