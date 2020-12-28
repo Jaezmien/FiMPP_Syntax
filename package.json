@@ -1,0 +1,30 @@
+{
+    "name": "fimpp",
+    "displayName": "FiM++",
+    "description": "Support for FiM++ file syntax",
+    "version": "0.0.1",
+    "publisher": "Jaezmien",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Jaezmien/FiMPP_Syntax"
+    },
+    "engines": {
+        "vscode": "^1.52.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "fimpp",
+            "aliases": ["FiM++", "fimpp"],
+            "extensions": [".fim",".fpp"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "fimpp",
+            "scopeName": "source.fpp",
+            "path": "./syntaxes/fimpp.tmLanguage.json"
+        }]
+    }
+}
