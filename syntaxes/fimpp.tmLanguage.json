@@ -148,9 +148,9 @@
         "variable_values": {
             "patterns": [
                 {
-                    "match":"((?:\\W(?:\\d+))|(?:^\\d+$))",
+                    "match":"(?<!\\w)(\\d+ )?[\\d ]+(?!\\w)( \\d+)?",
                     "captures": {
-                        "1": {
+                        "0": {
                             "name":"constant.numeric.integer.fimpp"
                         }
                     }
