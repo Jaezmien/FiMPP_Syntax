@@ -6,9 +6,6 @@
             "match":"(P\\.)(P\\.)*S\\. .*",
             "name":"comment.line.fpp.fimpp"
         },
-        {
-			"include": "#comment"
-        },
 
 		{
             "match": "(Dear Princess Celestia: )(.+)([\\.\\!\\?\\:\\,])",
@@ -206,10 +203,28 @@
         },
 
         {
+            "match": "(As long as|While) (.+)([\\.\\!\\?\\:\\,])",
+            "captures": {
+                "1":{
+                    "name": "keyword.control.while.fimpp"
+                },
+                "2":{
+                    "name": "entity.name.fimpp",
+                    "patterns": [{
+                        "include": "#conditionals"
+                    }]
+                },
+                "3":{
+                    "patterns": [{ "include": "#punctuations" }]
+                }
+            }
+        },
+
+        {
             "match": "(In regards to)([^:]+)(:)",
             "captures": {
                 "1":{
-                    "name": "keyword.operator.fimpp"
+                    "name": "keyword.control.switch.fimpp"
                 },
                 "2":{
                     "name": "entity.name.fimpp",
@@ -226,7 +241,7 @@
             "match": "(On the )(?:(\\d+)(\\w\\w))( hoof)(\\.\\.\\.)",
             "captures": {
                 "1": {
-                    "name": "keyword.operator.fimpp"
+                    "name": "keyword.control.case.fimpp"
                 },
                 "2": {
                     "name": "constant.numeric.integer.fimpp"
@@ -316,6 +331,43 @@
                     "patterns": [{ "include": "#punctuations" }]
                 }
             }
+        },
+
+        {
+            "match": "(There was one (?:more|less)) (.+)([\\.\\!\\?\\:\\,])",
+            "captures": {
+                "1": {
+                    "name": "keyword.other.indecrement.fimpp"
+                },
+                "2": {
+                    "patterns": [{
+                        "include": "#variable_values"
+                    }]
+                },
+                "3": {
+                    "patterns": [{ "include": "#punctuations" }]
+                }
+            }
+        },
+        {
+            "match": "(.+) (got one (?:more|less))([\\.\\!\\?\\:\\,])",
+            "captures": {
+                "1": {
+                    "patterns": [{
+                        "include": "#variable_values"
+                    }]
+                },
+                "2": {
+                    "name": "keyword.other.indecrement.fimpp"
+                },
+                "3": {
+                    "patterns": [{ "include": "#punctuations" }]
+                }
+            }
+        },
+
+        {
+			"include": "#comment"
         }
 
     ],
@@ -331,7 +383,7 @@
                     "name": "keyword.operator.fimpp"
                 },
                 {
-                    "comment": "Cannot use (.+) since it'll break the above operator match.",
+                    "comment": "Cannot use (.+) since it'll break the above operator match. Which means no variable highlighting...",
                     "match": " ((?:(?:had no|has no|is no|is not|isn't|was no|was not|wasn't|were no|were not|weren't) less than)|(?:(?:(?:had|has|were|was) more than)|(?:(?:is|was|were) greater than))|(?:(?:had|has|is|was|were) less than)|(?:(?:(?:is no|is not|isn't|was no|was not|wasn't|were|were not|weren't) greater than)|(?:(?:had no|has no|is no|is not|isn't|was no|was not|wasn't|were|were not|weren't) more than))|(?:(?:(?:wasn't|isn't|weren't) equal to)|(?:(?:had|has|is|was|were)n't)|(?:(?:had|has|is|was|were) not))|(?:(?:(?:is|was|were) equal to)|(?:(?:had|has|is|was|were)(?! no)))) ",
                     "captures": {
                         "1": {
@@ -438,7 +490,7 @@
             ]
         },
         "punctuations": {
-            "match": "(.)(?<=[\\.\\!\\?\\:\\,])",
+            "match": "[\\.\\!\\?\\:\\,]",
             "name": "keyword.operator.fimpp"
         },
         "strings": {
@@ -573,6 +625,7 @@
                         "2": {
                             "patterns": [
                                 {
+                                    "comment": "This is currently broken",
                                     "match": " and ",
                                     "name": "keyword.other"
                                 },
